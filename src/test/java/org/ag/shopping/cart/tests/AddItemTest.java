@@ -28,10 +28,43 @@ public class AddItemTest {
     public BuyingSteps buyerSteps;
 
     @Test
-    public void addItemsTest(){
+    public void checkAllTheElementsOnThePageLoadCorrectly(){
         //GIVEN
-
         buyerSteps.openPage();
-        buyerSteps.verify_Header_Text(headerText);
+
+        //WHEN
+        buyerSteps.check_All_The_Elements_On_The_Page("Items", "Quantity", "Description");
+
     }
+
+    @Test
+    public void addItemsWithDescriptionTest(){
+        //GIVEN
+        buyerSteps.openPage();
+
+        //WHEN
+        buyerSteps.check_All_The_Elements_On_The_Page("Items", "Quantity", "Description");
+        buyerSteps.select_no_items_from_the_dropdown(1);
+        buyerSteps.type_in_the_description(String.valueOf(System.currentTimeMillis()).substring(0, 8) + "adding new Item to the cart");
+        buyerSteps.click_add_to_cart();
+
+        //THEN
+        buyerSteps.check_that_the_item_has_been_to_the_cart();
+    }
+
+    @Test
+    public void addItemsWithoutDescriptionTest(){
+        //GIVEN
+        buyerSteps.openPage();
+
+        //WHEN
+        buyerSteps.check_All_The_Elements_On_The_Page("Items", "Quantity", "Description");
+        buyerSteps.select_no_items_from_the_dropdown(1);
+        buyerSteps.type_in_the_description("");
+        buyerSteps.click_add_to_cart();
+
+        //THEN
+        buyerSteps.check_that_the_item_has_been_to_the_cart();
+    }
+
 }
