@@ -4,11 +4,13 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Story;
+import net.thucydides.core.annotations.WithDriver;
 import org.ag.shopping.cart.requirements.StaticPages;
 import org.ag.shopping.cart.steps.BuyingSteps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 /**
  * Created by kusum.maned on 15/12/2015.
@@ -18,10 +20,9 @@ import org.openqa.selenium.WebDriver;
 @Story(StaticPages.Footer.ShoppingCart.class)
 public class AddItemTest {
 
-    @Managed
-    private String headerText = "Items";
 
-    @Managed
+
+    @Managed(driver="firefox")
     WebDriver driver;
 
     @Steps
@@ -45,7 +46,7 @@ public class AddItemTest {
         //WHEN
         buyerSteps.check_All_The_Elements_On_The_Page("Items", "Quantity", "Description");
         buyerSteps.select_no_items_from_the_dropdown(1);
-        buyerSteps.type_in_the_description(String.valueOf(System.currentTimeMillis()).substring(0, 8) + "adding new Item to the cart");
+        buyerSteps.type_in_the_description(String.valueOf("adding new Item to the cart"));
         buyerSteps.click_add_to_cart();
 
         //THEN

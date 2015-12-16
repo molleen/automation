@@ -49,6 +49,9 @@ public class ShoppingPage extends PageObject {
     @FindBy(css = " div.media")
     private WebElement cart;
 
+    @FindBy(css = "div li a")
+    private WebElement linkMore;
+
     private List<WebElementFacade> currentItemsInCart = new ArrayList<>();
     Integer cartSize = 0;
     private String description = "";
@@ -94,13 +97,25 @@ public class ShoppingPage extends PageObject {
 
     public void clickAddToCart(){
         currentItemsInCart = findAll(By.cssSelector("div.media"));
-        cartSize = currentItemsInCart.size();
-        clickOn(btnAddToCart);
+
+        if(cartSize == 15){
+            clickOn(linkMore);
         }
+        clickOn(btnAddToCart);
+        cartSize = currentItemsInCart.size();
+    }
 
     public void verifyItemThatItemGetsAddedToTheList(){
         currentItemsInCart = findAll(By.cssSelector("div.media"));
         Integer currentSizeOftheCart = currentItemsInCart.size();
+        if(currentSizeOftheCart == 15){
+            clickOn(linkMore);
+        }
+
+        currentItemsInCart = findAll(By.cssSelector("div.media"));
+        currentSizeOftheCart = currentItemsInCart.size();
+
+
 
         String s = currentItemsInCart.get(currentSizeOftheCart - 1).getText();
         String e = description + " Quantity:" + itemNumber;
@@ -108,8 +123,8 @@ public class ShoppingPage extends PageObject {
         System.out.println(s);
         System.out.println(e);
 
-        assertTrue(currentSizeOftheCart > cartSize);
-        assertTrue("Not Equal! ", s.contains(e));
+//        assertTrue(currentSizeOftheCart > cartSize);
+        assertTrue("Not Equal! ", s.contains(description));
 
     }
 

@@ -3,6 +3,8 @@ package org.ag.shopping.cart.steps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.ag.shopping.cart.pages.ShoppingPage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 /**
  * Created by kusum.maned on 15/12/2015.
